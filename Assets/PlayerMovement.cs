@@ -1,26 +1,33 @@
+using System.Xml.Schema;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private float speed = 7f;
-    public Vector2 input;
+    float speed = 7f;
+    private Vector2 input;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void OnMove( InputValue inputValue)
+    public void OnMove(InputValue value)
     {
-        input = inputValue.Get<Vector2>();
-
+        input = value.Get<Vector2>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        rb.linearVelocity = speed * input;
+        if (input != Vector2.zero){
+            rb.linearVelocity = input * speed;
+        }
+        else
+        {
+            rb.linearVelocity = new Vector2(Mathf.MoveTowards(rb.linearVelocity.x, 0f, 25f * Time.deltaTime), 
+            Mathf.MoveTowards(rb.linearVelocity.y, 0f, 25f * Time.deltaTime));
+        }
     }
 
 }
