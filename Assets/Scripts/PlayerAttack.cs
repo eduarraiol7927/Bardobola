@@ -15,9 +15,9 @@ public class PlayerAttack : MonoBehaviour
     {   
         Vector3 frontOfPlayer = player.transform.position + transform.forward * 2;
 
-        if (GetKeyDown(KeyCode.LeftMouse))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-                Instantiate(prefab, frontOfPlayer, Quaternion.Identity);
+                Instantiate(prefab, frontOfPlayer, Quaternion.identity);
         }
     }
 
