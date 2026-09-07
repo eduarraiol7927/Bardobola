@@ -4,25 +4,18 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     public GameObject prefab;
-    public GameObject player;
+    public GameObject FirePoint;
     
-    void Start()
-    {
-        
-    }
 
-    void OnAttack()
+    void OnAttack(InputValue value)
     {   
-        Vector3 frontOfPlayer = player.transform.position + transform.forward * 2;
+        Vector2 firePoint = FirePoint.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (value.isPressed)
         {
-                Instantiate(prefab, frontOfPlayer, Quaternion.identity);
-        }
-    }
+            GameObject instanciado = Instantiate(prefab, firePoint, Quaternion.identity);
 
-    void Update()
-    {
-        OnAttack();
+            Destroy(instanciado, 3f);
+        }
     }
 }

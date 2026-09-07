@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class HitboxScript : MonoBehaviour
@@ -8,25 +10,34 @@ public class HitboxScript : MonoBehaviour
     //caso colida com algo
     Rigidbody2D rb;
     //força pra mover
+    private PlayerMovement playerMovement;
+    //pra usar uma variavel do script    
     
 
 
     void Start()
+    //assim q o projetil é instanciado
     {
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
-        
-        transform.localScale = new Vector3(0f, 0f, 0f);
+
+        playerMovement = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
+        //chamamos nosso script, usando o findwithtag pra puxar-lo do player especificamente.
+
+        transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+        //aparece
+        rb.AddForce(playerMovement.lastDirection * 5f, ForceMode2D.Impulse);
+        //se move, na direção q o player estava ou está andando.
+        //coloquei o rb.addforce no start pois no update, um projetil se alterava por conta de outro que acabava de ser atirado.
     }
 
-    void Update()
+
+    void OnTriggerEnter2D(Collider2D obj)
     {
-        float direction = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyDown(KeyCode.Mouse0)){
-            transform.localScale = new Vector3(0.5f, 0.5f, 0f);
-            rb.AddForce(new Vector2(direction * 10f, 0f), ForceMode2D.Impulse);
-            // Destroy(Hitbox, 2f);
+        if (obj.gameObject.CompareTag("Enemy"))
+        {
+            //enemyBehaviour.Enemy.life -= damage;
         }
     }
 }
