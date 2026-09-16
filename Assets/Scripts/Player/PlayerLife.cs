@@ -4,10 +4,11 @@ using UnityEngine.UI;
 public class PlayerLife : MonoBehaviour
 {
     float damage;
-    //só pra testar
+    //só pra testar, mas esse damage sera atribuido pelo enemybehaviour.cs
     public float maxLife = 100f;
     public float currentLife;
     bool isDamaged;
+    public GameObject Enemy;
 
     public Slider lifeBar;
 
@@ -26,7 +27,8 @@ public class PlayerLife : MonoBehaviour
             currentLife -= damage;
             lifeBar.value = currentLife;
             isDamaged = false;
-            //essa volta pro false em sequencia é pra evitar q o player morra direto e também pra dar tempo de sair de perto
+            //essa parte especifica que volta pro false em sequencia do dano é pra evitar q o player morra direto
+            // e também pra dar tempo de sair de perto do inimigo, como um momento de invulnerabilidade.
         }
         
 
