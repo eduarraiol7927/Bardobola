@@ -38,6 +38,7 @@ public class HitboxScript : MonoBehaviour
         if (obj.gameObject.CompareTag("Enemy"))
         {
             //enemyBehaviour.Enemy.life -= damage;
+            Destroy(gameObject);        
         }
     }
 }

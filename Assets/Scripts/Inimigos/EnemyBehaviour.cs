@@ -14,16 +14,29 @@ public class EnemyBehaviour : MonoBehaviour
         playerLife = Player.GetComponent<PlayerLife>();
     }
 
-    void OnCollisionEnter2D(Collision2D obj)
+    void OnTriggerEnter2D(Collider2D obj)
     {
-        if (obj.gameObject.CompareTag("Player"))
+        if (obj.gameObject.CompareTag("Projectile"))
         {
-            playerLife.maxLife -= damage;
+            life -= 5f;
+            Debug.Log(life);
         }
+    }
+
+    void ChasePlayer()
+    {
+        transform.position = new Vector2(Mathf.MoveTowards(transform.position.x, Player.transform.position.x, 2f * Time.deltaTime),
+                                         Mathf.MoveTowards(transform.position.y, Player.transform.position.y, 2f * Time.deltaTime));
     }
 
     void Update()
     {
-       
+       ChasePlayer();
+
+       if (life <= 0)
+       {
+        Destroy(gameObject);
+       }
     }
+
 }

@@ -9,6 +9,7 @@ public class PlayerLife : MonoBehaviour
     public float currentLife;
     bool isDamaged;
     public GameObject Enemy;
+    EnemyBehaviour enemyBehaviour;
 
     public Slider lifeBar;
 
@@ -17,6 +18,8 @@ public class PlayerLife : MonoBehaviour
         currentLife = maxLife;
         lifeBar.maxValue = maxLife;
         lifeBar.value = currentLife;
+
+        enemyBehaviour = Enemy.GetComponent<EnemyBehaviour>();
         
     }
 
@@ -24,7 +27,7 @@ public class PlayerLife : MonoBehaviour
     {   
         if (isDamaged == true)
         {
-            currentLife -= damage;
+            currentLife -= enemyBehaviour.damage;
             lifeBar.value = currentLife;
             isDamaged = false;
             //essa parte especifica que volta pro false em sequencia do dano é pra evitar q o player morra direto
