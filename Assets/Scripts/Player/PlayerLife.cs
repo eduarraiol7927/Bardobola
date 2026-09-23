@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+//para configurarmos a barra de vida
+using UnityEngine.SceneManagement;
+//para configurarmos a cena que vai ser recarregada quando o player morrer
 
 public class PlayerLife : MonoBehaviour
 {
@@ -43,6 +46,8 @@ public class PlayerLife : MonoBehaviour
         if (currentLife <= 0)
         {
             Destroy(gameObject);
+            //cabe colocar uma tela de menu aqui, que voce retornaria, mas por enquanto, apenas recarrega a cena.
+            SceneManager.LoadScene("Gameplay");
         }
     }
 
