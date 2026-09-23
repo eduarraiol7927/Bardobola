@@ -4,12 +4,14 @@ public class EnemyBehaviour : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float damage = 5f;
-    public GameObject Player;
+    private GameObject Player;
     private PlayerLife playerLife;
     float life = 20f;
 
     void Start()
     {
+        Player = GameObject.FindGameObjectWithTag("Player");
+
         rb = GetComponent<Rigidbody2D>();
         playerLife = Player.GetComponent<PlayerLife>();
     }

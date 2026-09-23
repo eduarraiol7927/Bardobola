@@ -11,10 +11,13 @@ public class PlayerLife : MonoBehaviour
     public GameObject Enemy;
     EnemyBehaviour enemyBehaviour;
 
-    public Slider lifeBar;
+    public Slider lifeBar;  
+    private Rigidbody2D rb;
 
     void Start()
     {
+        Enemy = GameObject.FindGameObjectWithTag("Enemy");
+        rb = GetComponent<Rigidbody2D>();
         currentLife = maxLife;
         lifeBar.maxValue = maxLife;
         lifeBar.value = currentLife;
@@ -27,11 +30,13 @@ public class PlayerLife : MonoBehaviour
     {   
         if (isDamaged == true)
         {
+            Vector2 direction = (transform.position - Enemy.transform.position).normalized;
+
             currentLife -= enemyBehaviour.damage;
             lifeBar.value = currentLife;
+            rb.AddForce(direction * 15f, ForceMode2D.Impulse);
+            //knockback que o inimigo da no player
             isDamaged = false;
-            //essa parte especifica que volta pro false em sequencia do dano é pra evitar q o player morra direto
-            // e também pra dar tempo de sair de perto do inimigo, como um momento de invulnerabilidade.
         }
         
 
@@ -57,5 +62,12 @@ public class PlayerLife : MonoBehaviour
     void Update()
     {
         OnDamage();
+
+        if (Enemy == null)
+        {
+            Enemy = GameObject.FindGameObjectWithTag("Enemy");
+        //isso aqui foi colocado pra resolver o problema de quando o inimigo morre, porque o prefab dele vira null e o player
+        //nao toma mais dano. aí com isso ele encontra o inimigo que é instanciado a cada 5 segundos.
+        }
     }
 }
