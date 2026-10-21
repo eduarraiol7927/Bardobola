@@ -7,6 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject Player;
     private PlayerLife playerLife;
     float life = 20f;
+    bool enemyDead;
 
     void Start()
     {
@@ -20,7 +21,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (obj.gameObject.CompareTag("Projectile"))
         {
-            life -= 5f;
+            life -= damage;
             Debug.Log(life);
         }
     }
@@ -37,7 +38,12 @@ public class EnemyBehaviour : MonoBehaviour
 
        if (life <= 0)
        {
+        enemyDead = true;
         Destroy(gameObject);
+       }
+       else
+       {
+        enemyDead = false;
        }
     }
 
