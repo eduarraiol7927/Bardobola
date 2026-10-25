@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class PlayerAttack : MonoBehaviour
 {
     public GameObject prefab;
@@ -19,3 +18,4 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 }
+

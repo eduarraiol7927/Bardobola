@@ -19,7 +19,7 @@ public class EnemySpawn : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
             Vector2 spawnPosition = Random.insideUnitCircle * 10f;
             Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 

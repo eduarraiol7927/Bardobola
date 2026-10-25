@@ -1,17 +1,20 @@
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
-{
+{   
     private Rigidbody2D rb;
-    public float damage = 5f;
-    private GameObject Player;
+    public float enemyDamage = 5f;
+    public GameObject Player;
     private PlayerLife playerLife;
-    float life = 20f;
-    bool enemyDead;
+    public float life = 20f;
+    public bool isDead = false;
+    public LootboxScript lootscript;
+
 
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        lootscript = Player.GetComponent<LootboxScript>();
 
         rb = GetComponent<Rigidbody2D>();
         playerLife = Player.GetComponent<PlayerLife>();
@@ -21,8 +24,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (obj.gameObject.CompareTag("Projectile"))
         {
-            life -= damage;
-            Debug.Log(life);
+            life -= playerLife.playerDamage;
+            Debug.Log("Vida inimigo: " + life);
         }
     }
 
@@ -34,17 +37,14 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-       ChasePlayer();
+        ChasePlayer();
 
-       if (life <= 0)
-       {
-        enemyDead = true;
-        Destroy(gameObject);
-       }
-       else
-       {
-        enemyDead = false;
-       }
+        if (life <= 0)
+        {
+            lootscript.count++;
+            Destroy(gameObject);
+        }
+        
     }
 
 }

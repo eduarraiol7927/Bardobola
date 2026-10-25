@@ -3,8 +3,7 @@ using UnityEngine.UI;
 
 public class PlayerLife : MonoBehaviour
 {
-    float damage;
-    //só pra testar, mas esse damage sera atribuido pelo enemybehaviour.cs
+    public float playerDamage = 5f;
     public float maxLife = 100f;
     public float currentLife;
     bool isDamaged;
@@ -32,7 +31,7 @@ public class PlayerLife : MonoBehaviour
         {
             Vector2 direction = (transform.position - Enemy.transform.position).normalized;
 
-            currentLife -= enemyBehaviour.damage;
+            currentLife -= enemyBehaviour.enemyDamage;
             lifeBar.value = currentLife;
             rb.AddForce(direction * 15f, ForceMode2D.Impulse);
             //knockback que o inimigo da no player
